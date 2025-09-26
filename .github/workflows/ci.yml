@@ -68,12 +68,18 @@ jobs:
         echo "🚪 Configuring ingress..."
         kubectl apply -f k8s/ingress.yaml
         ./scripts/wait-for-ingress.sh echo-ingress 120
-        
+
+    - name: Map ingress hosts
+      run: |
+        echo "127.0.0.1 foo.localhost bar.localhost" | sudo tee -a /etc/hosts
+        cat /etc/hosts | tail -n 5   # debug: show last few lines
+
     - name: Health checks
       run: |
         echo "🏥 Health checks..."
         ./scripts/health-check.sh
         
+
     - name: Load testing
       run: |
         echo "🔥 Load testing..."

@@ -184,37 +184,4 @@ main() {
 }
 
 # Execute main function
-main "$@"
-
----
-#!/bin/bash
-# scripts/load-test.sh  
-# Production-grade load testing with comprehensive reporting
-
-set -euo pipefail
-
-# Default configuration - all parameterizable
-DURATION=${LOAD_TEST_DURATION:-"30s"}
-QPS=${LOAD_TEST_QPS:-50}
-CONCURRENCY=${LOAD_TEST_CONCURRENCY:-10}
-OUTPUT_DIR=${LOAD_TEST_OUTPUT_DIR:-"./results"}
-BASE_URL=${BASE_URL:-"http://localhost"}
-
-# Colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m'
-
-log() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $1"; }
-success() { echo -e "${GREEN}✅${NC} $1"; }
-warning() { echo -e "${YELLOW}⚠️${NC} $1"; }
-error() { echo -e "${RED}❌${NC} $1"; }
-
-# Usage information
-usage() {
-    cat <<EOF
-Usage: $0 [OPTIONS]
-
-Loa
+main "$@" 
