@@ -11,8 +11,8 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $1"; }
-success() { echo -e "${GREEN}✅${NC} $1"; }
-error() { echo -e "${RED}❌${NC} $1"; }
+success() { echo -e "${GREEN}${NC} $1"; }
+error() { echo -e "${RED}${NC} $1"; }
 
 if [[ -z "$INGRESS_NAME" ]]; then
     error "Ingress name is required"

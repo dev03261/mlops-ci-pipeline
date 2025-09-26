@@ -17,9 +17,9 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $1"; }
-success() { echo -e "${GREEN}✅${NC} $1"; }
-warning() { echo -e "${YELLOW}⚠️${NC} $1"; }
-error() { echo -e "${RED}❌${NC} $1"; }
+success() { echo -e "${GREEN}${NC} $1"; }
+warning() { echo -e "${YELLOW}${NC} $1"; }
+error() { echo -e "${RED}${NC} $1"; }
 
 # Advanced endpoint checking with detailed diagnostics
 check_endpoint() {
@@ -160,11 +160,11 @@ main() {
     fi
     
     # Phase 3: Wait for services to stabilize
-    log "⏳ Allowing services to stabilize..."
+    log "Allowing services to stabilize..."
     sleep 10
     
     # Phase 4: End-to-end connectivity tests
-    log "🌐 Testing end-to-end connectivity..."
+    log "Testing end-to-end connectivity..."
     if ! check_endpoint "foo.localhost" "foo"; then
         overall_exit_code=1
     fi
@@ -175,9 +175,9 @@ main() {
     
     # Final report
     if [[ $overall_exit_code -eq 0 ]]; then
-        success "🎉 All health checks passed! System is ready for load testing."
+        success "All health checks passed! System is ready for load testing."
     else
-        error "❌ Health check failures detected. Check logs above for details."
+        error "Health check failures detected. Check logs above for details."
     fi
     
     return $overall_exit_code

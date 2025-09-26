@@ -28,7 +28,6 @@ jobs:
     - name: Setup Go
       uses: actions/setup-go@v4
       with:
-        github-token: ${{ secrets.GH_PAT }}
         go-version: '1.21'
         
     - name: Install tools
@@ -49,19 +48,19 @@ jobs:
         
     - name: Create Kubernetes cluster
       run: |
-        echo "🏗️ Creating cluster..."
+        echo "Creating cluster..."
         kind create cluster --config=k8s/kind-config.yaml --wait=300s
         kubectl get nodes
         
     - name: Deploy NGINX Ingress
       run: |
-        echo "🌐 Deploying ingress..."
+        echo "Deploying ingress..."
         kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
         ./scripts/wait-for-deployment.sh ingress-nginx ingress-nginx-controller 300
         
     - name: Deploy applications
       run: |
-        echo "📦 Deploying apps..."
+        echo "Deploying apps..."
         helm upgrade --install foo ./helm/http-echo \
           --set app.name=foo --set app.response=foo --wait --timeout=5m
         helm upgrade --install bar ./helm/http-echo \
@@ -70,7 +69,7 @@ jobs:
         
     - name: Configure ingress
       run: |
-        echo "🚪 Configuring ingress..."
+        echo "Configuring ingress..."
         kubectl apply -f k8s/ingress.yaml
         ./scripts/wait-for-ingress.sh echo-ingress 120
 
@@ -81,13 +80,13 @@ jobs:
 
     - name: Health checks
       run: |
-        echo "🏥 Health checks..."
+        echo "Health checks..."
         ./scripts/health-check.sh
         
 
     - name: Load testing
       run: |
-        echo "🔥 Load testing..."
+        echo "Load testing..."
         ./scripts/load-test.sh \
           --duration="$LOAD_TEST_DURATION" \
           --qps="$LOAD_TEST_QPS" \
@@ -96,7 +95,7 @@ jobs:
         
     - name: Display results
       run: |
-        echo "📊 Load test results:"
+        echo "Load test results:"
         if [ -f "./results/foo_results.txt" ]; then
           echo "=== FOO Results ==="
           cat ./results/foo_results.txt
@@ -114,7 +113,7 @@ jobs:
         script: |
           const fs = require('fs');
           
-          let results = '📊 Load Testing Results:\n\n';
+          let results = 'Load Testing Results:\n\n';
           
           if (fs.existsSync('./results/foo_results.txt')) {
             const foo = fs.readFileSync('./results/foo_results.txt', 'utf8');
@@ -126,26 +125,18 @@ jobs:
             results += '### BAR Service:\n```\n' + bar + '\n```\n\n';
           }
           
-          const body = `## 🚀 MLOps Pipeline Results
+          const body = `## MLOps Pipeline Results
           
-          ✅ **SUCCESS** - All components deployed and tested!
-          
-          **Addressing Previous Feedback:**
-          - ✅ Helm charts eliminate YAML duplication
-          - ✅ Proper ingress testing (not port-forwarding)
-          - ✅ Health checks with retry logic  
-          - ✅ Parameterized scripts with error handling
-          - ✅ Resource limits and security contexts
-          - ✅ Comprehensive documentation
+          **SUCCESS** - All components deployed and tested!
           
           ${results}
           
           **Technical Implementation:**
-          - 🏗️ Multi-node Kubernetes cluster (3 nodes)
-          - 🌐 NGINX Ingress Controller
-          - 📦 Helm-based deployments
-          - 🏥 Health validation with retries
-          - 🔥 Load testing through ingress routing
+          - Multi-node Kubernetes cluster (3 nodes)
+          - NGINX Ingress Controller
+          - Helm-based deployments
+          - Health validation with retries
+          - Load testing through ingress routing
           
           *Pipeline completed: ${new Date().toISOString()}*`;
           
