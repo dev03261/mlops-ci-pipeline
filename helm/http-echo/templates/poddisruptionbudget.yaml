@@ -1,5 +1,4 @@
-# helm/http-echo/templates/poddisruptionbudget.yaml
-{{- if .Values.podDisruptionBudget.enabled | default false }}
+{{- if (and .Values.podDisruptionBudget (default false .Values.podDisruptionBudget.enabled)) }}
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
