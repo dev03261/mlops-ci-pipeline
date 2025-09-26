@@ -1,10 +1,10 @@
-# helm/http-echo/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.app.name }}
   labels:
-    {{- include "http-echo.labels" . | nindent 4 }}
+    app: {{ .Values.app.name }}
+    component: {{ .Values.labels.component }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -13,4 +13,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "http-echo.selectorLabels" . | nindent 4 }}
+    app: {{ .Values.app.name }}
