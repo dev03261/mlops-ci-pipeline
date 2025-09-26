@@ -28,6 +28,7 @@ jobs:
     - name: Setup Go
       uses: actions/setup-go@v4
       with:
+        github-token: ${{ secrets.GH_PAT }}
         go-version: '1.21'
         
     - name: Install tools
@@ -109,6 +110,7 @@ jobs:
       if: github.event_name == 'pull_request'
       uses: actions/github-script@v7
       with:
+        github-token: ${{ secrets.GH_PAT }}
         script: |
           const fs = require('fs');
           
