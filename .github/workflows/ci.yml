@@ -6,6 +6,10 @@ on:
   push:
     branches: [ main, master ]
 
+permissions:
+  contents: read
+  issues: write
+
 env:
   CLUSTER_NAME: mlops-cluster
   LOAD_TEST_DURATION: 30s
@@ -157,7 +161,4 @@ jobs:
         kind delete cluster --name "$CLUSTER_NAME" || true
 
 
-permissions:
-  contents: read
-  issues: write
 
