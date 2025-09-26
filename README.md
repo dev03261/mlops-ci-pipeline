@@ -237,10 +237,3 @@ kubectl get pods -l component=http-echo
 # Run health checks
 ./scripts/health-check.sh
 ```
-
-## 📈 Performance Benchmarks
-
-### Expected Performance
-On# Test change
-Pipeline fix applied
-# Test change
