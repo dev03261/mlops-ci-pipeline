@@ -1,4 +1,4 @@
-{{- if (dig "podDisruptionBudget" "enabled" false .Values) }}
+{{- if and (hasKey .Values "podDisruptionBudget") .Values.podDisruptionBudget.enabled }}
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "http-echo.labels" . | nindent 4 }}
 spec:
-  minAvailable: {{ dig "podDisruptionBudget" "minAvailable" 1 .Values }}
+  minAvailable: {{ default 1 .Values.podDisruptionBudget.minAvailable }}
   selector:
     matchLabels:
       {{- include "http-echo.selectorLabels" . | nindent 6 }}
