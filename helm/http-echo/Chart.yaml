@@ -1,0 +1,16 @@
+# helm/http-echo/Chart.yaml
+apiVersion: v2
+name: http-echo
+description: A Helm chart for HTTP Echo service deployment
+type: application
+version: 0.1.0
+appVersion: "latest"
+keywords:
+  - http
+  - echo
+  - testing
+  - mlops
+home: https://github.com/your-username/mlops-ci-pipeline
+maintainers:
+  - name: Your Name
+    email: your.email@example.com

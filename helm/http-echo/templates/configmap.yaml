@@ -1,0 +1,10 @@
+# helm/http-echo/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app.name }}-config
+  labels:
+    {{- include "http-echo.labels" . | nindent 4 }}
+data:
+  response: {{ .Values.app.response | quote }}
+  port: {{ .Values.app.port | quote }}
