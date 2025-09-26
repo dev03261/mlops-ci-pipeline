@@ -1,19 +1,24 @@
+# Application configuration
 app:
   name: "http-echo"
   response: "hello"
   port: 5678
 
+# Deployment configuration
 replicaCount: 2
 
+# Image configuration
 image:
   repository: hashicorp/http-echo
   tag: latest
   pullPolicy: IfNotPresent
 
+# Service configuration
 service:
   type: ClusterIP
   port: 80
 
+# Resource limits and requests
 resources:
   limits:
     cpu: 200m
@@ -22,6 +27,7 @@ resources:
     cpu: 100m
     memory: 128Mi
 
+# Health check configuration
 healthCheck:
   enabled: true
   initialDelaySeconds: 10
@@ -30,17 +36,17 @@ healthCheck:
   successThreshold: 1
   failureThreshold: 3
 
+# Labels for the application
 labels:
   component: http-echo
 
+# Security context
 securityContext:
   runAsNonRoot: true
   runAsUser: 1000
   fsGroup: 2000
 
+# PodDisruptionBudget configuration
 podDisruptionBudget:
   enabled: false
   minAvailable: 1
-
-  
-
